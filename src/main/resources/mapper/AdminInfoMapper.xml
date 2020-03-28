@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auto.mapper.AdminInfoMapper">
+    <resultMap id="BaseResultMap" type="com.auto.entity.AdminInfo">
+        <!--@mbg.generated-->
+        <!--@Table admin_info-->
+        <id column="admin_id" jdbcType="INTEGER" property="adminId"/>
+        <result column="admin_name" jdbcType="VARCHAR" property="adminName"/>
+        <result column="admin_phone" jdbcType="VARCHAR" property="adminPhone"/>
+        <result column="admin_email" jdbcType="VARCHAR" property="adminEmail"/>
+        <result column="admin_role" jdbcType="VARCHAR" property="adminRole"/>
+        <result column="admin_status" jdbcType="INTEGER" property="adminStatus"/>
+        <result column="reg_time" jdbcType="TIMESTAMP" property="regTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        admin_id, admin_name, admin_phone, admin_email, admin_role, admin_status, reg_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from admin_info
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from admin_info
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="admin_id" keyProperty="adminId" parameterType="com.auto.entity.AdminInfo"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into admin_info (admin_name, admin_phone, admin_email,
+        admin_role, admin_status, reg_time
+        )
+        values (#{adminName,jdbcType=VARCHAR}, #{adminPhone,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR},
+        #{adminRole,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="admin_id" keyProperty="adminId" parameterType="com.auto.entity.AdminInfo"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into admin_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminName != null">
+                admin_name,
+            </if>
+            <if test="adminPhone != null">
+                admin_phone,
+            </if>
+            <if test="adminEmail != null">
+                admin_email,
+            </if>
+            <if test="adminRole != null">
+                admin_role,
+            </if>
+            <if test="adminStatus != null">
+                admin_status,
+            </if>
+            <if test="regTime != null">
+                reg_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="adminName != null">
+                #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPhone != null">
+                #{adminPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEmail != null">
+                #{adminEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="adminRole != null">
+                #{adminRole,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null">
+                #{adminStatus,jdbcType=INTEGER},
+            </if>
+            <if test="regTime != null">
+                #{regTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.auto.entity.AdminInfo">
+        <!--@mbg.generated-->
+        update admin_info
+        <set>
+            <if test="adminName != null">
+                admin_name = #{adminName,jdbcType=VARCHAR},
+            </if>
+            <if test="adminPhone != null">
+                admin_phone = #{adminPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="adminEmail != null">
+                admin_email = #{adminEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="adminRole != null">
+                admin_role = #{adminRole,jdbcType=VARCHAR},
+            </if>
+            <if test="adminStatus != null">
+                admin_status = #{adminStatus,jdbcType=INTEGER},
+            </if>
+            <if test="regTime != null">
+                reg_time = #{regTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.auto.entity.AdminInfo">
+        <!--@mbg.generated-->
+        update admin_info
+        set admin_name = #{adminName,jdbcType=VARCHAR},
+        admin_phone = #{adminPhone,jdbcType=VARCHAR},
+        admin_email = #{adminEmail,jdbcType=VARCHAR},
+        admin_role = #{adminRole,jdbcType=VARCHAR},
+        admin_status = #{adminStatus,jdbcType=INTEGER},
+        reg_time = #{regTime,jdbcType=TIMESTAMP}
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </update>
+    <!--登录-->
+    <select id="adminToLogin" resultType="com.auto.entity.AdminInfo">
+        SELECT
+        a.admin_id,a.admin_name,a.admin_role,a.admin_status
+        FROM admin_info a WHERE admin_name = #{adminName} and admin_pwd= #{adminPwd} and admin_role = #{adminRole}
+    </select>
+    <!--登录-->
+</mapper>
